@@ -78,7 +78,7 @@ open ~/Applications/DisplayToggle.app
 
 ## 仕組み
 
-macOS の非公開API `CGSConfigureDisplayEnabled`（CoreGraphics / SkyLight）を `@_silgen_name` で宣言して呼んでいる。BetterDisplay の Disconnect も同じAPIを使っている。
+macOS の非公開API `CGSConfigureDisplayEnabled`（CoreGraphics / SkyLight）を `@_silgen_name` で宣言して呼んでいる。この関数は Apple の公開ドキュメントにはないが、Mac のモニター関係のオープンソースツールや、有志がまとめた非公開ヘッダー（CGSInternal など）で知られている。動くかどうかは、実機で切り離しと再接続を試して確認した（上記の動作確認環境）。
 
 ```swift
 CGBeginDisplayConfiguration(&cfg)
@@ -101,4 +101,4 @@ CGCompleteDisplayConfiguration(cfg, .forSession)
 ## 経緯
 
 - 無料の代替アプリを検討したが、どれも画面を黒くするだけで、macOS からは切り離さなかった。Lunar の BlackOut は Pro 版のみ、MonitorControl と Blackout – Display Manager は画面を覆うだけ。
-- BetterDisplay の Disconnect は Pro（有料）機能だった。そこで同じAPIを使う小さなアプリを自作した。BetterDisplay はアンインストール済み。
+- BetterDisplay の Disconnect は Pro（有料）機能だったため、上記の非公開APIを使う小さなアプリを自作した。BetterDisplay の実装は参照していない（非公開のため不明）。BetterDisplay はアンインストール済み。

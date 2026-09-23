@@ -1,5 +1,5 @@
 // 外付けモニターを macOS から切り離す / 再接続する共通処理。
-// BetterDisplay の Disconnect と同じ非公開API (CGSConfigureDisplayEnabled) を使う。
+// macOS の非公開API (CGSConfigureDisplayEnabled) を使う。
 // CLI (cli/main.swift) とメニューバーアプリ (app/main.swift) の両方から使う。
 import AppKit
 import CoreGraphics
