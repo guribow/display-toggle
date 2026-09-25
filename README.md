@@ -47,6 +47,8 @@ displayctl on PHL        # 指定したモニターだけ戻す
 | `app/main.swift` | メニューバーアプリ（`NSStatusItem`、Dock には出ない） |
 | `app/Info.plist` | アプリの設定（`LSUIElement`、Bundle ID `com.guribow.displaytoggle`） |
 | `cli/main.swift` | `displayctl` コマンド |
+| `icon/make-icon.swift` | アプリアイコンを作るスクリプト |
+| `icon/AppIcon.icns` | アプリアイコン（紫の角丸四角に白い画面2枚の記号） |
 | `build.sh` | ビルドとインストール |
 | `build/` | ビルド結果（生成物） |
 
@@ -75,6 +77,14 @@ cd ~/ClaudWork/display-toggle && ./build.sh
 ```bash
 open ~/Applications/DisplayToggle.app
 ```
+
+アイコンを変えるときは `icon/make-icon.swift` の色や記号を書き換えて、次を実行してからビルドし直す。
+
+```bash
+swift icon/make-icon.swift   # icon/AppIcon.icns を作り直す
+```
+
+Finder に古いアイコンが残るときは `touch ~/Applications/DisplayToggle.app` を実行する。
 
 ## 仕組み
 

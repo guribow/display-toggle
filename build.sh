@@ -9,8 +9,9 @@ swiftc -O -o build/displayctl DisplayCore.swift cli/main.swift
 
 APP=build/DisplayToggle.app
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp app/Info.plist "$APP/Contents/"
+cp icon/AppIcon.icns "$APP/Contents/Resources/"
 swiftc -O -o "$APP/Contents/MacOS/DisplayToggle" DisplayCore.swift app/main.swift
 codesign --force --sign - "$APP"
 
