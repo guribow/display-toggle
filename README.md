@@ -122,3 +122,7 @@ CGCompleteDisplayConfiguration(cfg, .forSession)
 
 - 無料の代替アプリを検討したが、どれも画面を黒くするだけで、macOS からは切り離さなかった。Lunar の BlackOut は Pro 版のみ、MonitorControl と Blackout – Display Manager は画面を覆うだけ。
 - BetterDisplay の Disconnect は Pro（有料）機能だったため、上記の非公開APIを使う小さなアプリを自作した。BetterDisplay の実装は参照していない（非公開のため不明）。BetterDisplay はアンインストール済み。
+
+## ライセンス
+
+MIT ライセンス（[LICENSE](LICENSE)）。自由に使う・改変する・配ることができる。配るときは著作権表示（© 2026 guribow）とライセンスの文章を残すこと。無保証で、使って起きたことについて作者は責任を負わない。
