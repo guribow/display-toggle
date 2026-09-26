@@ -51,6 +51,11 @@ displayctl toggle <name>   # disconnect or reconnect
 displayctl forget <name>   # remove an unplugged display from the list
 ```
 
+## Troubleshooting
+
+- **A display does not come back:** Run `displayctl on`. If that does not work, quit the app or log out.
+- **"Open at Login" shows an error:** Add DisplayToggle in System Settings > General > Login Items.
+
 ## Notes
 
 - The app uses a private macOS feature (`CGSConfigureDisplayEnabled`). A macOS update may break it.
@@ -74,4 +79,4 @@ Requires Xcode (swiftc).
 
 ## License
 
-MIT ([LICENSE](LICENSE)). You may use, change and share it. Keep the copyright notice and the license text when you share it. No warranty.
+MIT ([LICENSE](LICENSE)). No warranty.
