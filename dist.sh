@@ -17,6 +17,7 @@ make_zip() {   # $1 = ja / en、$2 = 説明書のファイル名
     mkdir -p "$STAGE"
     ditto build/DisplayToggle.app "$STAGE/DisplayToggle.app"
     ditto build/displayctl "$STAGE/displayctl"
+    codesign --force --sign - "$STAGE/DisplayToggle.app" "$STAGE/displayctl"   # 配るものは ad-hoc にする（証明書の本名を外に出さない）
     cp "dist/$2" "$STAGE/"
     cp LICENSE "$STAGE/"   # MIT ライセンスは、配るときにライセンスの文章を添えることを求めている
     # zip コマンドは署名を壊すことがあるので ditto で固める

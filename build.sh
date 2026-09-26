@@ -5,6 +5,11 @@ set -euo pipefail
 cd "$(dirname "$0")"
 mkdir -p build
 
+# 署名：この Mac に Apple Development の証明書があれば、それで署名する（ビルドし直しても、システム設定で許可した内容が外れない）。
+# なければ仮の署名（ad-hoc）にする。証明書には本名が入るので、配る zip は dist.sh で ad-hoc に署名し直す
+SIGN_ID=$(security find-identity -v -p codesigning 2>/dev/null | awk '/Apple Development:/ && !f {print $2; f=1}' || true)
+sign() { if [ -n "$SIGN_ID" ]; then codesign --force --timestamp=none --sign "$SIGN_ID" "$@"; else codesign --force --sign - "$@"; fi; }
+
 # macOS 13 以降で動く、Apple シリコンと Intel の両方に対応したユニバーサル形式にする
 MIN_OS=13.0
 universal() {   # $1 = 出力先、残り = ソース
@@ -17,7 +22,7 @@ universal() {   # $1 = 出力先、残り = ソース
 }
 
 universal build/displayctl DisplayCore.swift cli/main.swift
-codesign --force --sign - build/displayctl
+sign build/displayctl
 
 APP=build/DisplayToggle.app
 rm -rf "$APP"
@@ -25,7 +30,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp app/Info.plist "$APP/Contents/"
 cp icon/AppIcon.icns "$APP/Contents/Resources/"
 universal "$APP/Contents/MacOS/DisplayToggle" DisplayCore.swift app/main.swift
-codesign --force --sign - "$APP"
+sign "$APP"
 
 mkdir -p ~/Applications
 pkill -x DisplayToggle 2>/dev/null && sleep 1 || true
