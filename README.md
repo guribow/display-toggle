@@ -1,5 +1,7 @@
 # DisplayToggle
 
+[English](README.en.md)
+
 外付けモニター（セカンドモニター）を、メニューバーから macOS から切り離したり戻したりするアプリ。コマンドライン版の `displayctl` も付いている。
 
 モニター本体の電源を切るだけでは、macOS は数分間そのモニターを接続中として扱う。そのあいだ、カーソルやウインドウが見えない画面に移ってしまう。このアプリで切り離すと、macOS からもすぐに消える。
@@ -8,6 +10,32 @@
 - 動作確認：Mac mini（Apple Silicon）、macOS 27.2、Philips 230S8Q（セカンド）＋ HP 27f 4k（メイン）
 - 動く環境：macOS 13 以降（Apple シリコン・Intel のユニバーサル）。Intel は Mac mini 2018（macOS 15.8.1、モニターなしのサーバー）で、アプリの起動・一覧・英語表示を確認した。Intel での切り離し・戻す・ケーブル未接続の判定は、モニターのある環境で未確認
 - 言語：日本語・英語。Mac の言語設定が日本語なら日本語、それ以外なら英語で表示する（メニューバーのアプリもコマンドも）。アプリだけ言語を変えたいときは、システム設定 →「一般」→「言語と地域」→「アプリケーション」で指定する
+
+## ダウンロードと入れ方
+
+[Releases](https://github.com/guribow/display-toggle/releases/latest) から zip をダウンロードする。日本語の説明書つきは `DisplayToggle-<版>-ja.zip`、英語は `-en.zip`（アプリは同じもの）。
+
+zip には、同じことをするコマンド `displayctl` も入っている（使い方は zip の説明書を参照）。
+
+1. zip を開き、DisplayToggle.app を「アプリケーション」フォルダへ移す
+2. ダブルクリックすると「開けませんでした」などの警告が出るので、「完了」で閉じる（App Store 以外のアプリなので、最初だけ出る）
+3. システム設定 →「プライバシーとセキュリティ」の下のほうにある「このまま開く」を押し、パスワードを入れる
+4. もう一度ダブルクリックし、「開く」を押す
+
+メニューバーに画面のアイコンが出れば準備完了。新しい版に入れ替えたときは、また 2〜4 の許可が必要。
+
+消し方：
+
+1. メニューバーのアイコン →「終了」
+2. DisplayToggle.app をゴミ箱へ
+3. データも消すときは `~/Library/Application Support/displayctl` をゴミ箱へ
+4. `displayctl` を入れた場合は `sudo rm /usr/local/bin/displayctl`
+
+注意：
+
+- macOS の非公開の機能を使っているため、macOS の更新で動かなくなることがある
+- Intel の Mac での切り離しは未確認
+- プライバシー：データを外部に送らない。
 
 ## 使い方
 
@@ -122,6 +150,14 @@ CGCompleteDisplayConfiguration(cfg, .forSession)
 
 - 無料の代替アプリを検討したが、どれも画面を黒くするだけで、macOS からは切り離さなかった。Lunar の BlackOut は Pro 版のみ、MonitorControl と Blackout – Display Manager は画面を覆うだけ。
 - BetterDisplay の Disconnect は Pro（有料）機能だったため、上記の非公開APIを使う小さなアプリを自作した。BetterDisplay の実装は参照していない（非公開のため不明）。BetterDisplay はアンインストール済み。
+
+## 配布用の zip を作る
+
+```bash
+./dist.sh   # ビルドし直して dist/DisplayToggle-<版>-ja.zip と -en.zip を作る
+```
+
+中身はアプリ、コマンド、説明書（ja は「はじめにお読みください.txt」、en は「ReadMe.txt」）、LICENSE。GitHub の Releases に置く。署名は仮のもの（ad-hoc）なので、受け取った人は初回だけ「このまま開く」の許可が要る。版の番号は `app/Info.plist` の `CFBundleShortVersionString` から取る。
 
 ## ライセンス
 
