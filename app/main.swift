@@ -25,7 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func screensChanged() { updateIcon() }
 
     private func updateIcon() {
-        let anyOff = DisplayCore.all().contains { !$0.connected }
+        let anyOff = DisplayCore.all().contains { !$0.connected && !$0.unplugged }
         let symbol = anyOff ? "display" : "display.2"
         let image = NSImage(systemSymbolName: symbol, accessibilityDescription: "DisplayToggle")
         image?.isTemplate = true
@@ -44,11 +44,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             menu.addItem(disabledItem(L("外付けモニターなし")))
         }
         for d in externals {
-            let item = NSMenuItem(title: d.name, action: #selector(toggleDisplay(_:)), keyEquivalent: "")
+            let item: NSMenuItem
+            if d.unplugged {
+                // 切り離し中にケーブルが抜けた：戻せないので、クリックで一覧から消せるようにする
+                item = NSMenuItem(title: L("%@（ケーブル未接続）", d.name), action: #selector(forgetDisplay(_:)), keyEquivalent: "")
+                item.toolTip = L("ケーブルが抜けています。クリックで一覧から消す（つなぎ直すと自動で元に戻る）")
+            } else {
+                item = NSMenuItem(title: d.name, action: #selector(toggleDisplay(_:)), keyEquivalent: "")
+                item.state = d.connected ? .on : .off
+                item.toolTip = d.connected ? L("クリックで切り離す") : L("クリックで戻す")
+            }
             item.target = self
-            item.state = d.connected ? .on : .off
             item.representedObject = d.id
-            item.toolTip = d.connected ? L("クリックで切り離す") : L("クリックで戻す")
             menu.addItem(item)
         }
         if let main = DisplayCore.all().first(where: \.isMain) {
@@ -74,6 +81,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard let id = sender.representedObject as? CGDirectDisplayID,
               let d = DisplayCore.all().first(where: { $0.id == id }) else { return }
         do { try DisplayCore.toggle(d) } catch { showError(error) }
+        updateIcon()
+    }
+
+    @objc private func forgetDisplay(_ sender: NSMenuItem) {
+        guard let id = sender.representedObject as? CGDirectDisplayID,
+              let d = DisplayCore.all().first(where: { $0.id == id }) else { return }
+        DisplayCore.forget(d)
         updateIcon()
     }
 
