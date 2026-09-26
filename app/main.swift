@@ -35,32 +35,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     // メニューを開くたびに作り直す
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
-        let about = NSMenuItem(title: "DisplayToggle について", action: #selector(showAbout), keyEquivalent: "")
+        let about = NSMenuItem(title: L("DisplayToggle について"), action: #selector(showAbout), keyEquivalent: "")
         about.target = self
         menu.addItem(about)
         menu.addItem(.separator())
         let externals = DisplayCore.all().filter { !$0.isMain }
         if externals.isEmpty {
-            menu.addItem(disabledItem("外付けモニターなし"))
+            menu.addItem(disabledItem(L("外付けモニターなし")))
         }
         for d in externals {
             let item = NSMenuItem(title: d.name, action: #selector(toggleDisplay(_:)), keyEquivalent: "")
             item.target = self
             item.state = d.connected ? .on : .off
             item.representedObject = d.id
-            item.toolTip = d.connected ? "クリックで切り離す" : "クリックで戻す"
+            item.toolTip = d.connected ? L("クリックで切り離す") : L("クリックで戻す")
             menu.addItem(item)
         }
         if let main = DisplayCore.all().first(where: \.isMain) {
-            menu.addItem(disabledItem("\(main.name)（メイン）"))
+            menu.addItem(disabledItem(L("%@（メイン）", main.name)))
         }
 
         menu.addItem(.separator())
-        let login = NSMenuItem(title: "ログイン時に起動", action: #selector(toggleLoginItem), keyEquivalent: "")
+        let login = NSMenuItem(title: L("ログイン時に起動"), action: #selector(toggleLoginItem), keyEquivalent: "")
         login.target = self
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
-        let quit = NSMenuItem(title: "終了（モニターを全部戻す）", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        let quit = NSMenuItem(title: L("終了（モニターを全部戻す）"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
     }
 
