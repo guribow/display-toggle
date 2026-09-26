@@ -35,6 +35,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     // メニューを開くたびに作り直す
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
+        let about = NSMenuItem(title: "DisplayToggle について", action: #selector(showAbout), keyEquivalent: "")
+        about.target = self
+        menu.addItem(about)
+        menu.addItem(.separator())
         let externals = DisplayCore.all().filter { !$0.isMain }
         if externals.isEmpty {
             menu.addItem(disabledItem("外付けモニターなし"))
@@ -71,6 +75,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
               let d = DisplayCore.all().first(where: { $0.id == id }) else { return }
         do { try DisplayCore.toggle(d) } catch { showError(error) }
         updateIcon()
+    }
+
+    /// macOS 標準の「このアプリについて」（アイコン・名前・バージョン・著作権は Info.plist から）
+    @objc private func showAbout() {
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.orderFrontStandardAboutPanel(options: [.version: ""])   // ビルド番号の「(…)」は出さない
     }
 
     @objc private func toggleLoginItem() {
