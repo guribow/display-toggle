@@ -24,12 +24,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func screensChanged() { updateIcon() }
 
+    // 切り離し中 → 使用中 → 外付けなし の順に、当てはまる状態をアイコンで示す
     private func updateIcon() {
-        let anyOff = DisplayCore.all().contains { !$0.connected && !$0.unplugged }
-        let symbol = anyOff ? "display" : "display.2"
-        let image = NSImage(systemSymbolName: symbol, accessibilityDescription: "DisplayToggle")
+        let externals = DisplayCore.all().filter { !$0.isMain && !$0.unplugged }
+        let off = externals.filter { !$0.connected }.map(\.name)
+        let on = externals.filter(\.connected).map(\.name)
+        let symbol: String, text: String
+        if !off.isEmpty {
+            symbol = "rectangle.on.rectangle.slash"
+            text = L("切り離し中: %@", off.joined(separator: ", "))
+        } else if !on.isEmpty {
+            symbol = "display.2"
+            text = L("使用中: %@", on.joined(separator: ", "))
+        } else {
+            symbol = "display"
+            text = L("外付けモニターなし")
+        }
+        let image = NSImage(systemSymbolName: symbol, accessibilityDescription: text)
         image?.isTemplate = true
         statusItem.button?.image = image
+        statusItem.button?.toolTip = text
     }
 
     // メニューを開くたびに作り直す

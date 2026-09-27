@@ -44,6 +44,8 @@ private let english: [String: String] = [
     "操作に失敗: %@": "Failed: %@",
     "DisplayToggle について": "About DisplayToggle",
     "外付けモニターなし": "No external displays",
+    "切り離し中: %@": "Disconnected: %@",
+    "使用中: %@": "In use: %@",
     "クリックで切り離す": "Click to disconnect",
     "クリックで戻す": "Click to reconnect",
     "%@（メイン）": "%@ (Main)",

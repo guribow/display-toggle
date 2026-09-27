@@ -26,6 +26,11 @@ To start DisplayToggle when you log in, click the icon and choose "Open at Login
 
 - Click the menu bar icon to see your external displays.
 - Click a display to disconnect or reconnect it. A check mark means it is on.
+- The icon shows the state.
+  It shows two screens when external displays are on,
+  a slash when a display is disconnected,
+  and one screen when there are no external displays.
+  Point to the icon to see the display names.
 - You can't disconnect the main display, or the only display.
 - Two displays with the same name are shown as "(1)" and "(2)".
 - If you unplug a disconnected display, it is shown as "(unplugged)".
