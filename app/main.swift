@@ -11,6 +11,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.delegate = self
         statusItem.menu = menu
         updateIcon()
+        Updater.shared.onChange = { [weak self] in self?.updateIcon() }
+        Updater.shared.start()
         // ケーブルの抜き差しなどでモニター構成が変わったらアイコンを更新
         NotificationCenter.default.addObserver(
             self, selector: #selector(screensChanged),
@@ -42,13 +44,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         let image = NSImage(systemSymbolName: symbol, accessibilityDescription: text)
         image?.isTemplate = true
-        statusItem.button?.image = image
+        statusItem.button?.image = Updater.shared.badge(image)
         statusItem.button?.toolTip = text
     }
 
     // メニューを開くたびに作り直す
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
+        Updater.shared.topMenuItems().forEach(menu.addItem)
         let about = NSMenuItem(title: L("DisplayToggle について"), action: #selector(showAbout), keyEquivalent: "")
         about.target = self
         menu.addItem(about)
@@ -81,6 +84,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         login.target = self
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
+        Updater.shared.settingsMenuItems().forEach(menu.addItem)
         let quit = NSMenuItem(title: L("終了（モニターを全部戻す）"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
     }

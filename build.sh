@@ -29,7 +29,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp app/Info.plist "$APP/Contents/"
 cp icon/AppIcon.icns "$APP/Contents/Resources/"
-universal "$APP/Contents/MacOS/DisplayToggle" DisplayCore.swift app/main.swift
+universal "$APP/Contents/MacOS/DisplayToggle" DisplayCore.swift app/Updater.swift app/main.swift
 sign "$APP"
 
 mkdir -p ~/Applications

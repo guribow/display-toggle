@@ -68,6 +68,23 @@ private let english: [String: String] = [
         "The cable is unplugged. Click to remove from the list. (It comes back when you plug it in.)",
     "一覧から消した: %@": "Removed from the list: %@",
     "ケーブル未接続の記録に見つからない: %@": "Not found among unplugged displays: %@",
+    // アップデート
+    "バージョン %@ にアップデート…": "Update to Version %@…",
+    "アップデートをダウンロード中…": "Downloading Update…",
+    "アップデートを確認…": "Check for Updates…",
+    "アップデートを自動で確認": "Check for Updates Automatically",
+    "アップデートを確認できませんでした": "Couldn't check for updates",
+    "最新のバージョンです": "You're up to date",
+    "バージョン %@ は最新のバージョンです。": "Version %@ is the latest version.",
+    "バージョン %@ にアップデートしますか？": "Update to version %@?",
+    "新しいバージョンをダウンロードして入れ替え、起動し直します。": "The new version will be downloaded and installed, and the app will restart.",
+    "アップデート": "Update",
+    "キャンセル": "Cancel",
+    "変更点を見る": "What's New",
+    "ダウンロードしたファイルの中身が違います。": "The downloaded file is not the expected app.",
+    "ダウンロードしたアプリの署名が壊れています。": "The downloaded app's signature is broken.",
+    "アップデートできませんでした": "Couldn't update",
+    "リリースのページを開きます。手動で入れ替えてください。": "The release page will open. Please install it yourself.",
 ]
 
 enum DisplayError: LocalizedError {

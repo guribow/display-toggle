@@ -37,6 +37,9 @@ To start DisplayToggle when you log in, click the icon and choose "Open at Login
   Plug it in again to get it back, or click it to remove it from the list.
 - Disconnected displays come back when you log out, restart, or quit the app.
 - To see the version, click the icon and choose "About DisplayToggle".
+- When a new version is out, a small dot appears on the icon.
+  Choose "Update to Version …" at the top of the menu to install it.
+  displayctl is not updated. Install it again from the new zip if you use it.
 
 
 == Command line (optional) ==
@@ -56,8 +59,10 @@ In Terminal, go to this folder and run:
 == Notes ==
 
 - The app uses a private macOS feature. A macOS update may break it.
-- After you install a new version, repeat steps 3-5 of "Install".
-- The app sends no data anywhere.
+- If you install a new version from the zip, repeat steps 3-5 of "Install".
+  This is not needed when you use "Update" in the menu.
+- Once a day, the app asks GitHub for the latest version. It sends no other data.
+  You can turn this off with "Check for Updates Automatically" in the menu.
 
 
 == Uninstall ==

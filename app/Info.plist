@@ -29,5 +29,7 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 guribow</string>
+	<key>UpdateRepo</key>
+	<string>guribow/display-toggle</string>
 </dict>
 </plist>

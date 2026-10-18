@@ -22,7 +22,7 @@ Download the zip from [Releases](https://github.com/guribow/display-toggle/relea
 3. Open System Settings > Privacy & Security, scroll down, click "Open Anyway" and enter your password.
 4. Double-click the app again and click "Open".
 
-A display icon appears in the menu bar. After you install a new version, repeat steps 2-4.
+A display icon appears in the menu bar. If you install a new version from the zip, repeat steps 2-4. This is not needed when you use "Update" in the menu.
 
 ## How to use
 
@@ -34,6 +34,7 @@ A display icon appears in the menu bar. After you install a new version, repeat 
 - If you unplug a disconnected display, it is shown as "(unplugged)".
   Plug it in again to get it back, or click it to remove it from the list.
 - Disconnected displays come back when you log out, restart, or quit the app.
+- When a new version is out, a small dot appears on the menu bar icon. Choose "Update to Version …" at the top of the menu to install it and restart. The command (`displayctl`) is not updated. Install it again from the zip if you use it.
 
 ## Command line (optional)
 
@@ -60,7 +61,7 @@ displayctl forget <name>   # remove an unplugged display from the list
 ## Notes
 
 - The app uses a private macOS feature (`CGSConfigureDisplayEnabled`). A macOS update may break it.
-- Privacy: the app sends no data anywhere.
+- Privacy: Once a day, the app asks GitHub for the latest version. You can turn this off with "Check for Updates Automatically" in the menu. The app sends no other data.
 
 ## Uninstall
 
