@@ -58,7 +58,7 @@ displayctl forget <name>   # remove an unplugged display from the list
 - **A display does not come back:** Run `displayctl on`. If that does not work, quit the app or log out.
 - **"Open at Login" shows an error:** Add DisplayToggle in System Settings > General > Login Items.
 
-## Notes
+## About macOS support and data
 
 - The app uses a private macOS feature (`CGSConfigureDisplayEnabled`). A macOS update may break it.
 - Privacy: Once a day, the app asks GitHub for the latest version. You can turn this off with "Check for Updates Automatically" in the menu. The app sends no other data.

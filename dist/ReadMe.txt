@@ -56,7 +56,7 @@ In Terminal, go to this folder and run:
   displayctl toggle <name> Disconnect or reconnect
 
 
-== Notes ==
+== About macOS support and data ==
 
 - The app uses a private macOS feature. A macOS update may break it.
 - If you install a new version from the zip, repeat steps 3-5 of "Install".
