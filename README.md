@@ -74,6 +74,10 @@ Xcode（swiftc）が必要です。
 ./dist.sh    # dist/ に配布用の zip を作る
 ```
 
+## 質問・不具合
+
+質問や不具合は、[GitHub の Issues](https://github.com/guribow/display-toggle/issues) にお寄せください。
+
 ## ライセンス
 
 MIT ライセンスです（[LICENSE](LICENSE)）。無保証です。
